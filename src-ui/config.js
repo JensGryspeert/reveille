@@ -6,9 +6,9 @@
 // The proxy secret is shipped here — per design decision A it's weak obfuscation only
 // (server population is public), and the Vercel endpoint is rate-limited per IP.
 window.REVEILLE = {
-  // Always-latest raw gist URL. Replace REPLACE_GIST_ID with the real gist id.
+  // Always-latest raw gist URL (no revision hash, so edits propagate).
   GIST_URL:
-    "https://gist.githubusercontent.com/JensGryspeert/REPLACE_GIST_ID/raw/servers.json",
+    "https://gist.githubusercontent.com/JensGryspeert/a3eb42238a9a9b69ddaa0664853eface/raw/servers.json",
 
   // battlemetrics-proxy (generic BM pass-through): GET ?path=<bm api path>
   PROXY_URL: "https://battlemetrics-proxy-eight.vercel.app/api/bm",
@@ -17,16 +17,16 @@ window.REVEILLE = {
   POLL_MS: 60000,
   DEFAULT_POPPED_THRESHOLD: 50,
 
-  // Used when the gist can't be fetched and there's no cache yet. Edit before shipping.
+  // Used when the gist can't be fetched and there's no cache yet. Mirrors the gist.
   FALLBACK_CONFIG: {
-    poppedThreshold: 50,
+    poppedThreshold: 40,
     message: "",
     servers: [
       {
-        name: "7Cav Squad #1",
-        ip: "0.0.0.0",
-        port: 27015,
-        bmId: "REPLACE_BM_SERVER_ID",
+        name: "=7Cav= Squad Tactical Realism | RAAS & Invasion | Discord.gg/7Cav",
+        ip: "148.113.198.221",
+        port: 7787,
+        bmId: "23497207",
         priority: true,
       },
     ],
