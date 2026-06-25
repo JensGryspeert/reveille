@@ -47,11 +47,24 @@ The real INI lives at:
 - [ ] Add app icons before the first CI build (Tauri bundle requires them).
 - [ ] Generate the Tauri updater signing keypair; store private key in GitHub Actions secrets.
 
+## Seed INI
+
+The seed config (`src-tauri/resources/SeedGameUserSettings.ini`) is the **battle-tested
+config from [Matsozetex/Squad-Seed-Tool](https://github.com/Matsozetex/Squad-Seed-Tool),
+used verbatim**, with one deliberate Reveille change: `FullscreenMode=1` (borderless
+windowed) pinned in `[/Script/Engine.GameUserSettings]` so the always-on-top banner stays
+visible (the source left fullscreen mode to chance). It also confirms `PlayerNamePrefix="SEED"`
+is a real, supported Squad setting — kept so admins can spot seeders; customizable for 7Cav.
+
+Because the user's real INI is backed up and restored, the seed INI being a fixed blob
+(including the source author's benchmark/emote/sensitivity values) is harmless — it only
+applies during a seed session and is reverted on exit. Still worth re-verifying against the
+current Squad version on Windows after major game updates.
+
 ## Deferred to later versions
 
 - Tier B auto-connect.
 - Code signing (Azure Trusted Signing).
-- Optional `SEED` name prefix — **uncertain** whether Squad honors a name set via INI; verify on Windows before relying on it.
 
 ## Build & test loop
 
