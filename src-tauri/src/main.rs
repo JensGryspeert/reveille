@@ -30,10 +30,24 @@ fn recover_on_startup(app: tauri::AppHandle) -> Result<(), String> {
     Vault::for_app(&app)?.recover_if_needed()
 }
 
+/// Show an OS notification. The UI calls this once when the server "pops" so the seeder
+/// knows their job is done. (Done in Rust so the webview needs no bundled plugin JS.)
+#[tauri::command]
+fn notify(app: tauri::AppHandle, title: String, body: String) -> Result<(), String> {
+    use tauri_plugin_notification::NotificationExt;
+    app.notification()
+        .builder()
+        .title(title)
+        .body(body)
+        .show()
+        .map_err(|e| format!("notification failed: {e}"))
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_notification::init())
         .manage(SessionState::default())
         .setup(|app| {
             // Belt-and-braces: heal on startup even before the UI asks.
@@ -45,7 +59,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             start_seeding,
             restore_settings,
-            recover_on_startup
+            recover_on_startup,
+            notify
         ])
         .run(tauri::generate_context!())
         .expect("error while running Reveille");

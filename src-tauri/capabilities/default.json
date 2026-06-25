@@ -1,11 +1,12 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Core invoke/event access plus opener and updater for the main window.",
-  "windows": ["main"],
+  "description": "Core invoke/event access plus opener, updater, and notification.",
+  "windows": ["main", "banner"],
   "permissions": [
     "core:default",
     "opener:default",
-    "updater:default"
+    "updater:default",
+    "notification:default"
   ]
 }

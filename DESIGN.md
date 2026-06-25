@@ -30,8 +30,8 @@ The real INI lives at:
 | **Launch — Tier B** | (best-effort follow-up) Auto-connect via `+connect IP:port` in Steam launch options, with automatic fallback to Tier A if it fails. |
 | **Launch — Tier C** | Launching the bare EAC exe directly. **Ruled out** — bypasses EAC handshake, instant kick. |
 | **Stack** | **Tauri** (tiny binary). Rust backend + minimal webview UI. Builds on a **GitHub Actions Windows runner** (cannot cross-build from macOS). WebView2 bootstrapper embedded in the installer for true zero-prereq. |
-| **Server config** | Remote **gist** JSON, always-latest raw URL, CDN-cached (~minutes). Schema: `{ servers: [{name, ip, port, priority}], message }`. Baked-in offline fallback list; cache last-known. |
-| **Live population** | Yes in v1. Poll the Vercel battlemetrics-proxy **every 60s, active server only, while app is open**. |
+| **Server config** | Remote **gist** JSON, always-latest raw URL, CDN-cached (~minutes). Schema: `{ poppedThreshold, message, servers: [{name, ip, port, bmId, priority, poppedThreshold?}] }`. `bmId` = BattleMetrics server id (needed for population). Cached in `localStorage`; baked-in offline fallback in `config.js`. |
+| **Live population** | Yes in v1. Polled **in JS** (webview `csp:null`) via the Vercel battlemetrics-proxy as `?path=/servers/{bmId}` → `data.attributes.players`/`maxPlayers`. **Every 60s, selected server only, while app is open.** Doing it in JS keeps the Rust binary tiny (no `reqwest`). |
 | **Proxy secret** | **Option A** — a client-shipped secret can't stay secret, so treat it as weak obfuscation and **rate-limit the Vercel endpoint per-IP**. (Data behind it — server population — is already public.) |
 | **Restore detection** | Process-name polling state machine: `WAITING_FOR_LAUNCH → SEEDING → (process gone) → restore → IDLE`. ~2 min appear-timeout. Guard: refuse to start if `SquadGame.exe` is **already running** ("Close Squad first"). |
 | **Overlay banner** | External **click-through, always-on-top** window floating *over* the game. **NO injection / no render hooking — EVER** (EAC ban risk). Seed config forces **borderless-windowed** so the banner stays visible. |
@@ -46,6 +46,8 @@ The real INI lives at:
 - [ ] **Add per-IP rate-limiting** to the Vercel proxy endpoint.
 - [ ] Add app icons before the first CI build (Tauri bundle requires them).
 - [ ] Generate the Tauri updater signing keypair; store private key in GitHub Actions secrets.
+- [ ] Create the gist and fill `GIST_URL` in `src-ui/config.js` (+ the `FALLBACK_CONFIG` servers/`bmId`s).
+- [ ] Populate each server's BattleMetrics `bmId` in the gist so live population works.
 
 ## Seed INI
 

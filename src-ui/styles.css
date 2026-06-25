@@ -60,5 +60,25 @@ button:hover { background: var(--accent-hi); }
 button.secondary { background: transparent; color: var(--muted); border: 1px solid var(--muted); }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 
+button.primary { background: var(--accent-hi); }
+
+.field-label {
+  display: block;
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--muted);
+  background: var(--card);
+  color: var(--text);
+}
+
 .error { color: var(--danger); font-size: 0.9rem; }
 .hidden { display: none; }
