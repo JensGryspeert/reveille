@@ -15,7 +15,9 @@
 
 ## For developers
 
-See [DESIGN.md](./DESIGN.md) for the full spec and rationale.
+See [DESIGN.md](./DESIGN.md) for the full spec and rationale,
+[docs/gist.md](./docs/gist.md) for the server-config gist setup, and
+[docs/TESTING.md](./docs/TESTING.md) for the Windows test checklist.
 
 - **Stack:** [Tauri 2](https://tauri.app) — Rust backend + minimal webview UI.
 - **Build:** Windows binaries are produced on **GitHub Actions** (you cannot cross-build Tauri for Windows from macOS, and Squad/EAC only run on Windows anyway).

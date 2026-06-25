@@ -1,0 +1,21 @@
+{
+  "poppedThreshold": 50,
+  "message": "Seeding tonight 6–8pm EST on Squad #1 — jump in!",
+  "servers": [
+    {
+      "name": "7Cav Squad #1",
+      "ip": "203.0.113.10",
+      "port": 27015,
+      "bmId": "1234567",
+      "priority": true
+    },
+    {
+      "name": "7Cav Squad #2",
+      "ip": "203.0.113.11",
+      "port": 27015,
+      "bmId": "7654321",
+      "priority": false,
+      "poppedThreshold": 40
+    }
+  ]
+}
