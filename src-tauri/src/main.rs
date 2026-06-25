@@ -1,49 +1,43 @@
 // Prevents an extra console window on Windows in release.
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod session;
 mod settings;
 
+use session::{launch_and_watch, SessionState};
 use settings::{is_squad_running, Vault};
-use tauri::Manager;
 
-/// Builds a Vault rooted at the app's data dir.
-fn vault(app: &tauri::AppHandle) -> Result<Vault, String> {
-    let dir = app
-        .path()
-        .app_data_dir()
-        .map_err(|e| format!("locate app data dir: {e}"))?;
-    Vault::new(&dir)
-}
-
-/// Pre-flight + back up real settings + apply the seed config.
-/// (Launching Squad via the Steam deeplink and watching the process are wired separately.)
+/// Pre-flight + back up real settings + apply the seed config, then launch Squad via the
+/// Steam deeplink and start watching the process. Progress arrives as `seed-state` events.
 #[tauri::command]
 fn start_seeding(app: tauri::AppHandle) -> Result<(), String> {
     if is_squad_running() {
         return Err("Squad is already running. Close it first, then click Seed.".into());
     }
-    vault(&app)?.begin_seeding()
+    Vault::for_app(&app)?.begin_seeding()?;
+    launch_and_watch(app)
 }
 
 /// Panic button + normal end-of-session restore.
 #[tauri::command]
 fn restore_settings(app: tauri::AppHandle) -> Result<(), String> {
-    vault(&app)?.restore()
+    Vault::for_app(&app)?.restore()
 }
 
 /// Self-heal any interrupted seed session. Called by the UI on launch.
 #[tauri::command]
 fn recover_on_startup(app: tauri::AppHandle) -> Result<(), String> {
-    vault(&app)?.recover_if_needed()
+    Vault::for_app(&app)?.recover_if_needed()
 }
 
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .manage(SessionState::default())
         .setup(|app| {
             // Belt-and-braces: heal on startup even before the UI asks.
-            if let Ok(v) = vault(&app.handle()) {
+            if let Ok(v) = Vault::for_app(&app.handle()) {
                 let _ = v.recover_if_needed();
             }
             Ok(())

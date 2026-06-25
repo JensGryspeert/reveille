@@ -41,6 +41,17 @@ pub struct Vault {
 }
 
 impl Vault {
+    /// Build a Vault rooted at the app's per-app data dir. Shared by the Tauri commands
+    /// and the background watcher.
+    pub fn for_app(app: &tauri::AppHandle) -> Res<Self> {
+        use tauri::Manager;
+        let dir = app
+            .path()
+            .app_data_dir()
+            .map_err(|e| format!("locate app data dir: {e}"))?;
+        Self::new(&dir)
+    }
+
     /// `app_data_dir` is Tauri's per-app data directory (where we keep the backup + flag,
     /// deliberately OUTSIDE the game folder so a Squad reinstall/verify can't clobber it).
     pub fn new(app_data_dir: &Path) -> Res<Self> {
