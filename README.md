@@ -44,8 +44,5 @@ DESIGN.md
 The build will fail until these are done (both are also tracked in DESIGN.md):
 
 - ~~Add icons~~ ✅ done (sunrise icon in `src-tauri/icons/`; regenerate via `python3 scripts/make_icon.py`).
-- Generate the updater keypair (`npm run tauri signer generate`), then:
-  - put the **public** key in `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`
-    (replace `REPLACE_WITH_TAURI_UPDATER_PUBLIC_KEY`),
-  - add the **private** key + password as repo secrets `TAURI_SIGNING_PRIVATE_KEY`
-    and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`.
+- ~~Generate the updater keypair~~ ✅ done — pubkey in `tauri.conf.json`, private key +
+  password in repo secrets. Private-key backup lives in `~/.config/reveille/` — keep it safe.

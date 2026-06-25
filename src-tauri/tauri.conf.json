@@ -40,7 +40,7 @@
       "endpoints": [
         "https://github.com/JensGryspeert/reveille/releases/latest/download/latest.json"
       ],
-      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBLIC_KEY"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY4NkMyODUwNkREODJBOTMKUldTVEt0aHRVQ2hzYUNYUWFDZzMyeVhTQjgvTGxEYUhVZjluVmQ1RFU1MnVkbWQ2Vm1MK3JwNWkK"
     }
   }
 }

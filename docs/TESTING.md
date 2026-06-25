@@ -7,9 +7,10 @@ don't run on macOS, and the launch/process-watch/overlay logic is Windows-specif
 
 - [x] Icons added to `src-tauri/icons/` (sunrise icon generated; regenerate with
       `python3 scripts/make_icon.py` or replace with your own art).
-- [ ] Updater keypair: `npm run tauri signer generate`
-  - [ ] public key → `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`
-  - [ ] private key + password → repo secrets `TAURI_SIGNING_PRIVATE_KEY`, `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
+- [x] Updater keypair generated; pubkey in `tauri.conf.json`; private key + password
+      in repo secrets `TAURI_SIGNING_PRIVATE_KEY` / `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`.
+      **Back up `~/.config/reveille/` — losing the private key means existing installs
+      can't accept future updates.**
 - [ ] Gist created and `GIST_URL` + `FALLBACK_CONFIG` filled in `src-ui/config.js` (see `docs/gist.md`).
 - [ ] At least one server has a real `bmId`.
 - [ ] (Ops) Proxy secret rotated + per-IP rate-limit added on Vercel.
