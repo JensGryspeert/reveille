@@ -43,7 +43,7 @@ DESIGN.md
 
 The build will fail until these are done (both are also tracked in DESIGN.md):
 
-- Add icons to `src-tauri/icons/` — generate with `npm run tauri icon path/to/logo.png`.
+- ~~Add icons~~ ✅ done (sunrise icon in `src-tauri/icons/`; regenerate via `python3 scripts/make_icon.py`).
 - Generate the updater keypair (`npm run tauri signer generate`), then:
   - put the **public** key in `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`
     (replace `REPLACE_WITH_TAURI_UPDATER_PUBLIC_KEY`),

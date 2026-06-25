@@ -44,7 +44,7 @@ The real INI lives at:
 
 - [ ] **Rotate** the battlemetrics-proxy secret (was pasted in plaintext during design).
 - [ ] **Add per-IP rate-limiting** to the Vercel proxy endpoint.
-- [ ] Add app icons before the first CI build (Tauri bundle requires them).
+- [x] Add app icons (sunrise icon generated via `scripts/make_icon.py`).
 - [ ] Generate the Tauri updater signing keypair; store private key in GitHub Actions secrets.
 - [ ] Create the gist and fill `GIST_URL` in `src-ui/config.js` (+ the `FALLBACK_CONFIG` servers/`bmId`s).
 - [ ] Populate each server's BattleMetrics `bmId` in the gist so live population works.

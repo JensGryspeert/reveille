@@ -5,7 +5,8 @@ don't run on macOS, and the launch/process-watch/overlay logic is Windows-specif
 
 ## 0. Prerequisites (one-time, or CI will fail)
 
-- [ ] Icons added to `src-tauri/icons/` — `npm run tauri icon path\to\logo.png`.
+- [x] Icons added to `src-tauri/icons/` (sunrise icon generated; regenerate with
+      `python3 scripts/make_icon.py` or replace with your own art).
 - [ ] Updater keypair: `npm run tauri signer generate`
   - [ ] public key → `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`
   - [ ] private key + password → repo secrets `TAURI_SIGNING_PRIVATE_KEY`, `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
